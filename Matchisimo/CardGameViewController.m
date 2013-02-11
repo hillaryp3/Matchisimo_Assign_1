@@ -12,8 +12,8 @@
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
-@property (strong, nonatomic) IBOutlet UIButton *cardButton;
 @property (strong, nonatomic) Deck *deck;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @end
 
 @implementation CardGameViewController
@@ -24,11 +24,13 @@
     return _deck;
 }
 
-- (void)setCardButton:(UIButton *)cardButton
+- (void)setCardButtons:(NSArray *)cardButtons
 {
-    _cardButton = cardButton;
-    Card *card = [self.deck drawRandomCard];
-    [cardButton setTitle:card.contents forState:UIControlStateSelected];
+    _cardButtons = cardButtons;
+    for (UIButton *cardButton in cardButtons) {
+        Card *card = [self.deck drawRandomCard];
+        [cardButton setTitle:card.contents forState:UIControlStateSelected];
+    }
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -41,10 +43,7 @@
 - (IBAction)flipCard:(UIButton *)sender {
     sender.selected = !sender.isSelected;
     self.flipCount++;
-    if (!sender.isSelected) {
-        Card *card = [self.deck drawRandomCard];
-        [self.cardButton setTitle:card.contents forState:UIControlStateSelected];
-    }
+    
 }
 
 
