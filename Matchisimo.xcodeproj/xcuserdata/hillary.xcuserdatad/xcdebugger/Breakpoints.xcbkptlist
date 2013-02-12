@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Matchisimo/Model/PlayingCard.m"
-         timestampString = "382103942.303671"
+         timestampString = "382365027.548535"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "15"
-         endingLineNumber = "15"
+         startingLineNumber = "30"
+         endingLineNumber = "30"
          landmarkName = "-contents"
          landmarkType = "5">
       </FileBreakpoint>
