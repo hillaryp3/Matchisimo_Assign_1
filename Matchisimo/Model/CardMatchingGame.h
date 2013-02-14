@@ -14,10 +14,11 @@
 - (id)initWithCardCount:(NSUInteger)cardCount
               usingDeck:(Deck *)deck;
 
--(void)flipCardAtIndex:(NSUInteger)index;
+- (void)flipCardAtIndex:(NSUInteger)index;
 
--(Card *)cardAtIndex:(NSUInteger)index;
+- (Card *)cardAtIndex:(NSUInteger)index;
 
-@property (nonatomic, readonly) int score;
+@property (nonatomic) int score;
+@property (nonatomic) NSString *flipState;
 
 @end
