@@ -20,5 +20,6 @@
 
 @property (nonatomic) int score;
 @property (nonatomic) NSString *flipState;
+@property (nonatomic) int mode; //0 = 2 card, 1 = 3 card
 
 @end

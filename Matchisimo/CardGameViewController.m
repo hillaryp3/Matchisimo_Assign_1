@@ -23,7 +23,13 @@
 
 @implementation CardGameViewController
 
-
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.flipsLabel.text = @"";
+    self.gameMode.hidden = NO;
+}
 - (CardMatchingGame *)game
 {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count
@@ -39,14 +45,24 @@
 
 - (void)updateUI
 {
+    
+    
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
+        
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
         [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
         
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
+        if(!card.isFaceUp){
+            UIImage *cardBackImage = [UIImage imageNamed:@"decker06.jpg"];
+            [cardButton setImageEdgeInsets:UIEdgeInsetsMake(-1.0, -1.0, -1.0, -1.0)];
+            [cardButton setImage:cardBackImage forState:UIControlStateNormal];
+        } else {
+            [cardButton setImage:nil forState:UIControlStateNormal];
+        }
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     self.gameDetailLabel.text = self.game.flipState;
@@ -60,6 +76,7 @@
 
 - (IBAction)flipCard:(UIButton *)sender {
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
+    self.gameMode.hidden = YES;
     self.flipCount++;
     [self updateUI];
 }
@@ -67,15 +84,22 @@
 - (IBAction)pressDealButton:(UIButton *)sender
 {
     self.game = nil;
+    self.gameMode.hidden = NO;
     self.game.score = 0;
     self.gameDetailLabel.text = nil;
+    self.game.flipState = nil;
     self.flipCount = 0;
     [self updateUI];
     
 }
 
-- (IBAction)changeGameMode:(id)sender {
-    self.game = nil;
+- (IBAction)changeGameMode:(UISegmentedControl *)sender {
+    self.game.mode = sender.selectedSegmentIndex;
+    if (sender.selectedSegmentIndex) {
+        NSLog(@"Switched to 3 card game mode");
+    } else {
+        NSLog(@"Switched to 2 card game mode");
+    }
 }
 
 @end
