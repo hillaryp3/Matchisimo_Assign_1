@@ -45,8 +45,7 @@
 
 - (void)updateUI
 {
-    
-    
+    UIImage *cardBackImage = [UIImage imageNamed:@"card-back.png"];    
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         
@@ -57,8 +56,6 @@
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
         if(!card.isFaceUp){
-            UIImage *cardBackImage = [UIImage imageNamed:@"decker06.jpg"];
-            [cardButton setImageEdgeInsets:UIEdgeInsetsMake(-1.0, -1.0, -1.0, -1.0)];
             [cardButton setImage:cardBackImage forState:UIControlStateNormal];
         } else {
             [cardButton setImage:nil forState:UIControlStateNormal];
