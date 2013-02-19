@@ -71,17 +71,20 @@
         }
     } else if (otherCards.count == 2) {
         NSLog(@"Getting Here");
-        PlayingCard *otherFirst = [otherCards objectAtIndex:0];
-        PlayingCard *otherSecond = [otherCards lastObject];
-        
-        if (otherFirst.rank == self.rank &&
-            otherSecond.rank == self.rank &&
-            otherFirst.rank == otherSecond.rank) {
+        Card *otherFirst = [otherCards objectAtIndex:0];
+        Card *otherSecond = [otherCards lastObject];
+        if ([otherFirst isKindOfClass:[PlayingCard class]] && [otherSecond isKindOfClass:[PlayingCard class]]) {
+            PlayingCard *otherFirstPlayingCard = (PlayingCard *)otherFirst;
+            PlayingCard *otherSecondPlayingCard = (PlayingCard *)otherSecond;
+            if (otherFirstPlayingCard.rank == self.rank &&
+                otherSecondPlayingCard.rank == self.rank &&
+                otherFirstPlayingCard.rank == otherSecondPlayingCard.rank) {
                 score = 25;
-        } else if ([otherFirst.suit isEqualToString:self.suit] &&
-                   [otherSecond.suit isEqualToString:self.suit] &&
-                   [otherFirst.suit isEqualToString:otherSecond.suit]){
-            score = 12;
+            } else if ([otherFirstPlayingCard.suit isEqualToString:self.suit] &&
+                       [otherSecondPlayingCard.suit isEqualToString:self.suit] &&
+                       [otherFirstPlayingCard.suit isEqualToString:otherSecondPlayingCard.suit]){
+                score = 12;
+            }
         }
     }
     return score;
